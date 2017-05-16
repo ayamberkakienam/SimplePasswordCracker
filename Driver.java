@@ -7,19 +7,35 @@ import java.util.Scanner;
 public class Driver {
   public static void main(String[] args) throws LockException {
 
-    Lock lock = new Lock(3, 5);
-    PasswordCracker cracker = new PasswordCracker(lock);
-    String inputKey;
-    Scanner reader = new Scanner(System.in);
+    Lock lock;
+    PasswordCracker cracker;
+    double startTime;
+    double duration;
+    final int maxRange = 95;
+    final int maxLength = 16;
 
-    System.out.println("Key : " + lock.getKeyVal());
-    System.out.println("Enter key : ");
-    inputKey = cracker.crackLock();
-    if (lock.isUnlockedBy(inputKey)) {
-      System.out.println("Success!");
-    } else {
-      System.out.println("Failed!");
-      System.out.println(cracker.getKeyVal());
+    /*
+    Length sebagai sumbu x
+    Range sebagai sumbu y
+     */
+    System.out.print("Range");
+    for (int i = 1; i <= maxLength; i++) {
+      System.out.printf(",%d", i);
+    }
+    System.out.println();
+
+    for (int range = 1; range <= maxRange; range++) {
+      System.out.print(range);
+      for (int length = 1; length <= maxLength; length++) {
+        lock = new Lock(length, range);
+        cracker = new PasswordCracker(lock);
+
+        startTime = System.currentTimeMillis();
+        cracker.crackLock();
+        duration = System.currentTimeMillis() - startTime;
+        System.out.printf(",%.2f", duration);
+      }
+      System.out.println();
     }
   }
 }

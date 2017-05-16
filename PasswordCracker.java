@@ -2,9 +2,9 @@
  * Created by Husnulzaki Wibisono Haryadi (13515005) on 5/16/17.
  */
 public class PasswordCracker {
+  private  Lock lock;
   private int[] keyCode;
   private String keyVal;
-  private  Lock lock;
   private int crackCounter;
 
   public PasswordCracker(Lock lock) {
@@ -29,7 +29,6 @@ public class PasswordCracker {
         }
       }
       keyToString();
-//      System.out.println(getKeyVal());
       crackCounter++;
     }
     return keyVal;
